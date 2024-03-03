@@ -17,4 +17,5 @@ The system will run on the console. The data modified throughout the program run
 * Any User can rent a max of 3 cars at any time.
 * While returning a car, a fine of 50 per day from the due date is imposed and this is added along with the base price to the dues of the user. If the user is an employee he gets an additional 15% discount.
 * The record of either customer or user is reduced by twice the number of days of delayed return and the condition in which it is returned in reference to how it was rented multiplied by a factor of 5, which will be manually verified by the manager.<br>
+
 These are the underlying assumptions of the system, the other functionalities are as mentioned in the problem statement and evident during the execution of the program.
