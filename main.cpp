@@ -1691,7 +1691,7 @@ void Manager:: see_rented_cars_and_who_rented(string id){
         }
     }
     content.clear();
-    if(count==0) cout<<"No cars have been rented by this user"<<endl;
+    if(count==0) cout<<"No cars have been rented yet"<<endl;
 }
 
 void Manager::see_due_date_of_car(string id){
