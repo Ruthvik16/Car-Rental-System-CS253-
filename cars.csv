@@ -1,6 +1,5 @@
-scross,123,0,1,1709463771,customer,2,17,4500
-tata,124,0,0,nil,nil,nil,20,5000
-bata,125,0,0,nil,nil,nil,20,5000
-mercedes,126,0,0,nil,nil,nil,30,10000
-audi,127,0,0,nil,nil,nil,40,10000
-
+Scross,123,2,0,nil,nil,nil,50,4500
+Nano,124,5,0,nil,nil,nil,45,5000
+Wagonr,125,0,0,nil,nil,nil,50,3000
+Mercedes,126,0,nil,nil,nil,85,10000
+Audi,127,0,nil,nil,nil,85,10000
