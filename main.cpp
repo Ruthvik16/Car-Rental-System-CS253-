@@ -646,13 +646,14 @@ void Manager :: display_manager_lookup(string id){
     //logout()
     cout<<"Press l to logout\n";
     divider();
-    char temp;
+    string temp;
     bool validinput= false;
-    while(!validinput){
+    bool a = false;
+    while(!a){
         cin>>temp;
         //cin>>option;
-        if ((temp>='0'&&temp<='9') || temp=='l'|| temp=='d' ) {
-            validinput= true;
+        if (temp=="1" || temp=="2" || temp=="3" || temp=="4" || temp=="5" || temp=="6" || temp=="7" || temp=="8" || temp=="9" || temp=="0" || temp=="d" || temp=="l") {
+            a= true;
         } else {
             cout << "Invalid input. Please enter a valid input" <<endl;
         }
@@ -661,61 +662,57 @@ void Manager :: display_manager_lookup(string id){
     User u;
     Car c;
     string isbn,uid;
-    if(temp=='0'){
+    if(temp=="0"){
         m.see_all_cars();
         m.display_manager_lookup(id);
     }
-    else if(temp=='1'){
+    else if(temp=="1"){
         m.add_user();
         m.display_manager_lookup(id);
     }
-    else if(temp=='2'){
+    else if(temp=="2"){
         m.update_user();
         m.display_manager_lookup(id);
     }
-    else if(temp=='3'){
+    else if(temp=="3"){
         m.delete_user();
         m.display_manager_lookup(id);
     }
-    else if(temp=='4'){
+    else if(temp=="4"){
         m.add_car();
         m.display_manager_lookup(id);
     }
-    else if(temp=='5'){
+    else if(temp=="5"){
         m.update_car();
         m.display_manager_lookup(id);
     }
-    else if(temp=='6'){
+    else if(temp=="6"){
         m.delete_car();
         m.display_manager_lookup(id);
     }
-    else if(temp=='7'){
+    else if(temp=="7"){
         string uid;
         cout<<"Enter the id of the user : \n";
         cin>>uid;
         m.see_rented_by_user(id,uid);
         m.display_manager_lookup(id);
     }
-    else if(temp=='8'){
+    else if(temp=="8"){
         m.see_rented_cars_and_who_rented(id);
         m.display_manager_lookup(id);
     }
-    else if(temp=='9'){
+    else if(temp=="9"){
         m.see_all_users();
         m.display_manager_lookup(id);
     }
-    else if(temp=='0'){
-        m.see_all_cars();
-        m.display_manager_lookup(id);
-    }
-    else if(temp=='d'){
+    else if(temp=="d"){
         string uid;
         cout<<"Enter the id of the car : \n";
         cin>>uid;
         m.see_due_date_of_car(uid);
         m.display_manager_lookup(id);
     }
-    else if(temp=='l'){
+    else if(temp=="l"){
         logout();
         m.display_manager_lookup(id);
     }
@@ -930,12 +927,12 @@ void User:: return_car(string id,string car_id,string type_user){
         readfile("employee.csv");
         for(auto &x:content){
             if(x[1]==id){
-                x[4] = to_string(MyStoi::stoi(x[4])-5*stoi(temp));
                 int curtime = time(0);
                 int isstime = issued_date;
                 int fine=0;
-                if((curtime-isstime)/86400>30) fine+=40*((curtime-isstime)/86400 - 30);
-                x[5] = to_string(MyStoi::stoi(x[5])+base_rent+fine);
+                if((curtime-isstime)/86400>30) fine+=50*((curtime-isstime)/86400 - 30);
+                x[4] = to_string(MyStoi::stoi(x[4])-5*stoi(temp)-fine/25);
+                x[5] = to_string(MyStoi::stoi(x[5])+int(((base_rent+fine)*85)/100));
             }
         }
         writefile(content,"employee.csv");
@@ -1022,7 +1019,7 @@ void Customer :: sign_up(){
     cout<<"Enter the password"<<endl;
     cin>>word;
     temp.push_back(word);
-    temp.push_back("50");
+    temp.push_back("70");
     temp.push_back("0");
     content.clear();
     readfile("customers.csv");
