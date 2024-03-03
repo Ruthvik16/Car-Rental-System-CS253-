@@ -11,3 +11,10 @@ g++ main.cpp -o main.exe
 ```
 The system will run on the console. The data modified throughout the program run will be reflected in the csv files.<br>
 <br>
+#Functionality
+* All the fields of the Customer, Employee and the Manager are case sensitive, further there cannot exist 2 users with the same ID and 2 cars with the same ID.
+* A new account can be made by the user only if he is a Customer, if he is an Employee or Manager, an existing manager should add them to the system.
+* A new customer during registration gets a default customer value of 70 and dues as 0.
+* Any User can rent a max of 3 cars at any time.
+* While returning a car, a fine of 50 per day from the due date is imposed and the record is reduced by twice the number of days of delayed return.
+* 
