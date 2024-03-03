@@ -1088,7 +1088,7 @@ void Manager::add_user(){
         temp.push_back(word);
         if(temp1=="2") temp.push_back("employee");
         if(temp1=="3") temp.push_back("manager");
-        temp.push_back("50");
+        temp.push_back("70");
         temp.push_back("0");
         content.clear();
         readfile("employee.csv");
@@ -1118,7 +1118,7 @@ void Manager::add_user(){
         cout<<"Enter the users password"<<endl;
         cin>>word;
         temp.push_back(word);
-        temp.push_back("50");
+        temp.push_back("70");
         temp.push_back("0");
         content.clear();
         readfile("customers.csv");
