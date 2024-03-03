@@ -1,5 +1,6 @@
-Scross,123,2,0,nil,nil,nil,50,4500
-Nano,124,5,0,nil,nil,nil,45,5000
-Wagonr,125,0,0,nil,nil,nil,50,3000
-Mercedes,126,0,0,nil,nil,nil,85,10000
-Audi,127,0,0,nil,nil,nil,85,10000
+scross,123,1,0,nil,nil,nil,50,4500
+tata,124,0,0,nil,nil,nil,50,5000
+wagonr,125,0,0,nil,nil,nil,50,5000
+mercedes,126,0,0,nil,nil,nil,80,10000
+audi,127,0,0,nil,nil,nil,80,10000
+McLaren,128,3,0,nil,nil,nil,85,10000
