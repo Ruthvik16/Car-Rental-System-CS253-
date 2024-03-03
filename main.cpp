@@ -1203,7 +1203,6 @@ void Manager::update_user(){
                         x[2]=update;
                         break;
                     case 4:
-                        //Write code to check if update is an integer else ask for input again
                         c = false;
                         while(!c){
                             try{
@@ -1218,7 +1217,6 @@ void Manager::update_user(){
                         x[3]=update;
                         break;
                     case 5:
-                        //Write code to check if update is a positive integer else ask for input again
                         d = false;
                         while(!d){
                             try{
@@ -1460,7 +1458,7 @@ void Manager::add_car(){
             }
             else b=true;
         }
-        catch(exception e){
+        catch(...){
             cout<<"Please enter a valid input"<<endl;
             cin>>u.condition;
         }
@@ -1480,7 +1478,7 @@ void Manager::add_car(){
             MyStoi::stoi(temporary);
             a=true;
         }
-        catch(exception e){
+        catch(...){
             cout<<"Please enter a valid input"<<endl;
             cin>>temporary;
         }
@@ -1494,7 +1492,7 @@ void Manager::add_car(){
             MyStoi::stoi(temporary);
             a=true;
         }
-        catch(exception e){
+        catch(...){
             cout<<"Please enter a valid input"<<endl;
             cin>>temporary;
         }
@@ -1597,7 +1595,7 @@ void Manager::update_car(){
                             }
                             else b=true;
                         }
-                        catch(exception e){
+                        catch(...){
                             cout<<"Please enter a valid input between 0 and 5"<<endl;
                             cin>>s;
                         }
@@ -1605,7 +1603,6 @@ void Manager::update_car(){
                     x[2]=s;
                     break;
                 case 4:
-                    //Thoda hard, have to look into data wala bs
                     x[4]=s;
                     break;
                 case 5:
@@ -1644,7 +1641,7 @@ void Manager::update_car(){
                             MyStoi::stoi(s);
                             a=true;
                         }
-                        catch(exception e){
+                        catch(...){
                             cout<<"Please enter a valid input"<<endl;
                             cin>>s;
                         }
@@ -1654,12 +1651,11 @@ void Manager::update_car(){
                 case 8:
                     a=false;
                     while(!a){
-                        //Write code to check if input temporary can be converted to an integer using MyStoi::stoi else ask for input again
                         try{
                             MyStoi::stoi(s);
                             a=true;
                         }
-                        catch(exception e){
+                        catch(...){
                             cout<<"Please enter a valid input"<<endl;
                             cin>>s;
                         }
