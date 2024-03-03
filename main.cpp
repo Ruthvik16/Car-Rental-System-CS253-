@@ -42,15 +42,11 @@ void divider(){
 }
 
 std::string formatDateFromSeconds(time_t seconds) {
-    // Convert the number of seconds to a tm structure representing the date in local time zone
     std::tm* timeinfo = std::localtime(&seconds);
 
     if (timeinfo == nullptr) {
-        // Handle error, maybe return an empty string or throw an exception
         return "";
     }
-
-    // Format the date using std::put_time
     std::ostringstream oss;
     oss << std::setfill('0') << std::setw(2) << timeinfo->tm_mday << '/' << std::setw(2) << timeinfo->tm_mon + 1 << '/' << timeinfo->tm_year + 1900;
 
@@ -119,6 +115,7 @@ bool check_car(string id){
     return false;
 }
 
+//User
 class User{
     private:
         string password;
@@ -190,12 +187,9 @@ void User :: display_menu(){
         cout<<"3. Press 3 to exit\n";
         divider();
         cin>>temp;
-        //cin>>option;
-        //Write code to check if the input is valid
         bool a = false;
         a=false;
         while(!a){
-            //Write code to check if input temporary can be converted to an integer using MyStoi::stoi else ask for input again
             try{
                 MyStoi::stoi(temp);
                 if(temp=="1" || temp=="2" || temp=="3") a=true;
@@ -215,7 +209,6 @@ void User :: display_menu(){
         validinput= true;
     }
     if(temp=="1"){
-        //Login to the user
         User u;
         u.login();
     }
@@ -452,7 +445,6 @@ void Customer :: display_customer_lookup(string id){
     bool a = false;
     a=false;
     while(!a){
-        //Write code to check if input temporary can be converted to an integer using MyStoi::stoi else ask for input again
         try{
             MyStoi::stoi(temp);
             if(temp=="1" || temp=="2" || temp=="3" || temp=="4"||temp=="5"||temp=="6"||temp=="7"||temp=="8" ) a=true;
@@ -480,7 +472,6 @@ void Customer :: display_customer_lookup(string id){
     }
     else if(temp=="3"){
         cout<<"Enter a car ID."<<endl;
-        //Write code to check if the car is rentable by the user
         string carid;
         cin>>carid;
         c.rent_car(id,carid,"customer");
@@ -496,7 +487,7 @@ void Customer :: display_customer_lookup(string id){
     else if(temp=="5"){
         int temp;
         temp = c.calc_dues(id,"customer");
-        cout<<"The fined owed by you is: "<<temp<<endl;
+        cout<<"The fine owed by you is: "<<temp<<endl;
         c.display_customer_lookup(id); 
     }
     else if(temp=="6"){
@@ -507,7 +498,6 @@ void Customer :: display_customer_lookup(string id){
         cout<<"Enter the id of the car : \n";
         string uid;
         cin>>uid;
-        //Write code to check if the car is rented by the user
         content.clear();
         readfile("cars.csv");
         int count=0;
@@ -553,7 +543,6 @@ void Employee :: display_employee_lookup(string id){
     bool a = false;
     a=false;
     while(!a){
-        //Write code to check if input temporary can be converted to an integer using MyStoi::stoi else ask for input again
         try{
             MyStoi::stoi(temp);
             if(temp=="1" || temp=="2" || temp=="3" || temp=="4"||temp=="5"||temp=="6"||temp=="7"||temp=="8") a=true;
@@ -596,7 +585,7 @@ void Employee :: display_employee_lookup(string id){
     else if(temp=="5"){
         int temp;
         temp = e.calc_dues(id,"employee");;
-        cout<<"The fined owed by you is: "<<temp<<endl;
+        cout<<"The fine owed by you is: "<<temp<<endl;
         e.display_employee_lookup(id);
     }
     else if(temp=="6"){
@@ -607,7 +596,6 @@ void Employee :: display_employee_lookup(string id){
         cout<<"Enter the id of the car : \n";
         string uid;
         cin>>uid;
-        //Write code to check if the car is rented by the user
         content.clear();
         readfile("cars.csv");
         int count=0;
@@ -766,17 +754,13 @@ void User::logout(){
 }
 
 void User::see_all_available_cars_given_record(string id, string type_user){
-    //Find user in database with given id, and extract record
-    //Based on the record
     int record=0;
     content.clear();
     if(type_user == "customer"){
         readfile("customers.csv");
         for(auto &x:content){
             if(x[1]==id){
-                // cout<<"yaha pe"<<endl;
                 record = MyStoi::stoi(x[3]);
-                // cout<<"yaha pe bhi"<<endl;
                 break;
             }
         }
@@ -834,9 +818,7 @@ void User::rent_car(string id,string car_id,string type_user){
             readfile("customers.csv");
             for(auto &x:content){
                 if(x[1]==id){
-                    // cout<<"yaha pe"<<endl;
                     record = MyStoi::stoi(x[3]);
-                    // cout<<"yaha pe bhi"<<endl;
                     break;
                 }
             }
@@ -875,7 +857,7 @@ void User:: return_car(string id,string car_id,string type_user){
     content.clear();
     readfile("cars.csv");
     for(auto &x:content){
-        if(x[1]==car_id){
+        if(x[1]==car_id && x[6]==id){
             count++;
         }
     }
@@ -883,15 +865,26 @@ void User:: return_car(string id,string car_id,string type_user){
         cout<<"You have not rented the following car or the car does not exist. Please try again and provide valid details."<<endl;
         return;    
     }
-    cout<<"You can now return a car. Please enter the condition of the car which is returned on a scale of 0-5 where 0 implies that it is returned as rented and 5 implying its severely damaged. You can't lie this is going to be manually checked by the manager XD"<<endl;
-    int temp;
-    bool validinput= false;
-    while(!validinput){
-        cin>>temp;
-        if (temp>=0 && temp <=5) {
-            validinput= true;
-        } else {
-            cout << "Invalid input. Please enter a number between 1 to 5" <<endl;
+    cout<<"You can now return a car. Please enter the condition of the car which is returned on a scale of 0-5 where 0 implies that it is returned in a good condition and 5 implying its severely damaged. You can't lie this is going to be manually checked by the manager XD"<<endl;
+    string temp;
+    cin>>temp;
+    bool a = false;
+    a=false;
+    while(!a){
+        try{
+            MyStoi::stoi(temp);
+            if(temp>="0" && temp<="5") a=true;
+            else{
+                cout<<"Please enter a valid input between 0 and 5"<<endl;
+                cin>>temp;
+                a = false;
+            }
+            
+        }
+        catch(...){
+            cout<<"Please enter a valid input between 0 and 5"<<endl;
+            cin>>temp;
+            a=false;
         }
     }
     content.clear();
@@ -900,7 +893,7 @@ void User:: return_car(string id,string car_id,string type_user){
     int issued_date=0;
     for(auto &x:content){
         if(x[1]==car_id){
-            x[2] = to_string(temp);
+            x[2] = temp;
             x[3] = "0";
             issued_date = MyStoi::stoi(x[4]);
             x[4] = "nil";
@@ -910,8 +903,7 @@ void User:: return_car(string id,string car_id,string type_user){
             int fine=0;
             int curtime = time(0);
             if((curtime-isstime)/86400>30) fine+=50*((curtime-isstime)/86400 - 30);
-            x[7] = to_string(MyStoi::stoi(x[7])-3*temp-(fine/40));
-            //x[8] = to_string(MyStoi::stoi(x[8])-500*temp);
+            x[7] = to_string(MyStoi::stoi(x[7])-3*stoi(temp)-(fine/40));
             base_rent = MyStoi::stoi(x[8]);
             count++;
         }
@@ -923,12 +915,11 @@ void User:: return_car(string id,string car_id,string type_user){
         readfile("customers.csv");
         for(auto &x:content){
             if(x[1]==id){
-                
                 int curtime = time(0);
                 int isstime = issued_date;
                 int fine=0;
                 if((curtime-isstime)/86400>30) fine+=50*((curtime-isstime)/86400 - 30);
-                x[3] = to_string(MyStoi::stoi(x[3])-5*temp-fine/25);
+                x[3] = to_string(MyStoi::stoi(x[3])-5*stoi(temp)-fine/25);
                 x[4] = to_string(MyStoi::stoi(x[4])+base_rent+fine);
             }
         }
@@ -939,7 +930,7 @@ void User:: return_car(string id,string car_id,string type_user){
         readfile("employee.csv");
         for(auto &x:content){
             if(x[1]==id){
-                x[4] = to_string(MyStoi::stoi(x[4])-5*temp);
+                x[4] = to_string(MyStoi::stoi(x[4])-5*stoi(temp));
                 int curtime = time(0);
                 int isstime = issued_date;
                 int fine=0;
@@ -1066,18 +1057,19 @@ void Manager:: see_all_cars(){
 
 void Manager::add_user(){
     cout<<"Select 1 if the user is a customer, 2 if the user is an employee and 3 if the user is a manager"<<endl;
-    int temp1;
+    string temp1;
     bool validinput= false;
-    while(!validinput){
+    bool a = false;
+    while(!a){
         cin>>temp1;
         //cin>>option;
-        if (temp1>=1 && temp1<=3) {
-            validinput= true;
+        if (temp1=="1" || temp1=="2" || temp1=="3") {
+            a= true;
         } else {
             cout << "Invalid input. Please enter a valid input" <<endl;
         }
     }
-    if(temp1==2 || temp1==3){
+    if(temp1=="3" || temp1=="2"){
         vector<string> temp;
         string word;
         User u;
@@ -1099,8 +1091,8 @@ void Manager::add_user(){
         cout<<"Enter the users password"<<endl;
         cin>>word;
         temp.push_back(word);
-        if(temp1==2) temp.push_back("employee");
-        if(temp1==3) temp.push_back("manager");
+        if(temp1=="2") temp.push_back("employee");
+        if(temp1=="3") temp.push_back("manager");
         temp.push_back("50");
         temp.push_back("0");
         content.clear();
@@ -1110,7 +1102,7 @@ void Manager::add_user(){
         writefile(content,"employee.csv");
         cout<<"User added succesfully"<<endl;
     }
-    if(temp1==1){
+    if(temp1=="1"){
         vector<string> temp;
         string word;
         User u;
@@ -1144,18 +1136,19 @@ void Manager::add_user(){
 
 void Manager::update_user(){
     cout<<"Select 1 if the user is a customer, 2 if the user is an employee and 3 if the user is a manager"<<endl;
-    int temp1;
+    string temp1;
     bool validinput= false;
-    while(!validinput){
+    bool a = false;
+    while(!a){
         cin>>temp1;
         //cin>>option;
-        if (temp1>=1 && temp1<=3) {
-            validinput= true;
+        if (temp1=="1" || temp1=="2" || temp1=="3") {
+            a= true;
         } else {
             cout << "Invalid input. Please enter a valid input" <<endl;
         }
     }
-    if(temp1==1){
+    if(temp1=="1"){
         cout<<"Enter id of customer to be updated"<<endl;
         string id;
         cin>>id;
@@ -1250,7 +1243,7 @@ void Manager::update_user(){
         writefile(content,"customers.csv");
         cout<<"Update Succesful for customer"<<endl;
     }
-    else if(temp1==2 || temp1==3){
+    else if(temp1=="2" || temp1=="3"){
         cout<<"Enter id of user to be updated"<<endl;
         int count=0;
         content.clear();
@@ -1369,18 +1362,19 @@ void Manager::update_user(){
 
 void Manager::delete_user(){
     cout<<"Select 1 if the user is a customer, 2 if the user is an employee and 3 if the user is a manager"<<endl;
-    int temp1;
+    string temp1;
     bool validinput= false;
-    while(!validinput){
+    bool a = false;
+    while(!a){
         cin>>temp1;
         //cin>>option;
-        if (temp1>=1 && temp1<=3) {
-            validinput= true;
+        if (temp1=="1" || temp1=="2" || temp1=="3") {
+            a= true;
         } else {
             cout << "Invalid input. Please enter a valid input" <<endl;
         }
     }
-    if(temp1==1){
+    if(temp1=="1"){
         cout<<"Enter id of customer to be removed"<<endl;
         string id;
         cin>>id;
@@ -1407,7 +1401,7 @@ void Manager::delete_user(){
         clearfile("customers.csv");
         writefile(content,"customers.csv");
     }
-    else if(temp1==2 || temp1==3){
+    else if(temp1=="3" || temp1=="2"){
         cout<<"Enter id of user to be removed"<<endl;
         string id;
         cin>>id;
@@ -1452,7 +1446,7 @@ void Manager::add_car(){
         is_already_used2 = check_car(u.id);
     }
     temp.push_back(u.id);
-    cout<<"Enter the users condition"<<endl;
+    cout<<"Enter the cars condition"<<endl;
     cin>>u.condition;
     //Write code to check if input is an integer between 0 and 5 else ask for input again
     bool b = false;
@@ -1496,7 +1490,6 @@ void Manager::add_car(){
     cin>>temporary;
     a=false;
     while(!a){
-        //Write code to check if input temporary can be converted to an integer using MyStoi::stoi else ask for input again
         try{
             MyStoi::stoi(temporary);
             a=true;
@@ -1562,7 +1555,7 @@ void Manager::update_car(){
     readfile("cars.csv");
     for(auto &x:content){
         if(x[1]==id){
-            cout<<"Select 1 to update car model, 2 to update car id, 3 to update car condition, 4 to update car availability, 5 to update date of rent of car, 6 to update who issued,7 to update id of issuer, 8 to update minimum record for rent and 9 to update the base price."<<endl;
+            cout<<"Select 1 to update car model, 2 to update car id, 3 to update car condition, 4 to update date of rent of car, 5 to update who issued,6 to update id of issuer, 7 to update minimum record for rent and 8 to update the base price."<<endl;
             int temp1;
             bool validinput= false;
             while(!validinput){
@@ -1612,29 +1605,10 @@ void Manager::update_car(){
                     x[2]=s;
                     break;
                 case 4:
-                    b = false;
-                    while(!b){
-                        try{
-                            MyStoi::stoi(s);
-                            if(MyStoi::stoi(s)!=0 && MyStoi::stoi(s)!=1){
-                            cout<<"Please enter a valid input between 0 and 5"<<endl;
-                            cin>>s;
-                            b=false;
-                            }
-                            else b=true;
-                        }
-                        catch(exception e){
-                            cout<<"Please enter a valid input between 0 and 5"<<endl;
-                            cin>>s;
-                        }
-                    }
-                    x[3]=s;
-                    break;
-                case 5:
                     //Thoda hard, have to look into data wala bs
                     x[4]=s;
                     break;
-                case 6:
+                case 5:
                     e = false;
                     while(!e){
                         try{
@@ -1654,7 +1628,7 @@ void Manager::update_car(){
                     }
                     x[5]=s;
                     break;
-                case 7:
+                case 6:
                     isValidId = check(s);
                     if (isValidId) {
                         x[6]=s;
@@ -1663,7 +1637,7 @@ void Manager::update_car(){
                         cin >> s;
                     }
                     break;
-                case 8:
+                case 7:
                     a=false;
                     while(!a){
                         try{
@@ -1677,7 +1651,7 @@ void Manager::update_car(){
                     }
                     x[7]=s;
                     break;
-                case 9:
+                case 8:
                     a=false;
                     while(!a){
                         //Write code to check if input temporary can be converted to an integer using MyStoi::stoi else ask for input again
