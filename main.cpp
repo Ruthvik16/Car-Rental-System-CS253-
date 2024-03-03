@@ -519,7 +519,7 @@ void Employee :: display_employee_lookup(string id){
     divider();
     User u;
     string name = u.return_name(id,"employee");
-    cout<<"Welcome "<<name<<" . "<<endl;
+    cout<<"Welcome "<<name<<"."<<endl;
     cout<<"\nYou have been Succesfully logged in as an Employee\n";
     //void see_all_available_cars_given_record(string id);
     cout<<"Press 1 to see all the available cars for rent\n";
@@ -617,7 +617,7 @@ void Manager :: display_manager_lookup(string id){
     divider();
     User u_name;
     string name = u_name.return_name(id,"manager");
-    cout<<"Welcome "<<name<<" . "<<endl;
+    cout<<"Welcome "<<name<<"."<<endl;
     cout<<"You have been Succesfully logged in as a Manager\n";
     //add_user(id)
     cout<<"Press 1 to add a user\n";
@@ -653,7 +653,7 @@ void Manager :: display_manager_lookup(string id){
         if (temp=="1" || temp=="2" || temp=="3" || temp=="4" || temp=="5" || temp=="6" || temp=="7" || temp=="8" || temp=="9" || temp=="0" || temp=="d" || temp=="l") {
             a= true;
         } else {
-            cout << "Invalid input. Please enter a valid input" <<endl;
+            cout << "Invalid input. Please enter a valid input between 0 and 9 or characters d/l" <<endl;
         }
     }
     Manager m;
@@ -1061,7 +1061,7 @@ void Manager::add_user(){
         if (temp1=="1" || temp1=="2" || temp1=="3") {
             a= true;
         } else {
-            cout << "Invalid input. Please enter a valid input" <<endl;
+            cout << "Invalid input. Please enter a valid input between 1 and 3." <<endl;
         }
     }
     if(temp1=="3" || temp1=="2"){
@@ -1140,7 +1140,7 @@ void Manager::update_user(){
         if (temp1=="1" || temp1=="2" || temp1=="3") {
             a= true;
         } else {
-            cout << "Invalid input. Please enter a valid input" <<endl;
+            cout << "Invalid input. Please enter a valid input between 1 and 3." <<endl;
         }
     }
     if(temp1=="1"){
@@ -1164,15 +1164,16 @@ void Manager::update_user(){
         for(auto &x:content){
             if(x[1]==id){
                 cout<<"Select 1 to update customer name, 2 to update customer id, 3 to update customer password, 4 to update customer record, 5 to update customer fine due"<<endl;
-                int temp1;
+                string temp1;
                 bool validinput= false;
-                while(!validinput){
+                bool a = false;
+                while(!a){
                     cin>>temp1;
                     //cin>>option;
-                    if (temp1>=1 && temp1<=5) {
-                        validinput= true;
+                    if (temp1=="1" || temp1=="2" || temp1=="3" || temp1=="4" || temp1=="5") {
+                        a= true;
                     } else {
-                        cout << "Invalid input. Please enter a valid input" <<endl;
+                        cout << "Invalid input. Please enter a valid input between 1 and 5." <<endl;
                     }
                 }
                 cout<<"Enter updated detail"<<endl;
@@ -1181,7 +1182,7 @@ void Manager::update_user(){
                 bool is_already_used1 = check(update);
                 readfile("customers.csv");
                 bool c,d,e;
-                switch(temp1){
+                switch(stoi(temp1)){
                     case 1:
                         x[0] = update;
                         break;
@@ -1257,15 +1258,16 @@ void Manager::update_user(){
         for(auto &x:content){
             if(x[1]==id){
                 cout<<"Select 1 to update user name, 2 to update user id, 3 to update user password, 4 to update who user is, 5 to update user record, 6 to update users fine due"<<endl;
-                int temp1;
+                string temp1;
                 bool validinput= false;
-                while(!validinput){
+                bool a = false;
+                while(!a){
                     cin>>temp1;
                     //cin>>option;
-                    if (temp1>=1 && temp1<=5) {
-                        validinput= true;
+                    if (temp1=="1" || temp1=="2" || temp1=="3" || temp1=="4" || temp1=="5" || temp1=="6") {
+                        a= true;
                     } else {
-                        cout << "Invalid input. Please enter a valid input" <<endl;
+                        cout << "Invalid input. Please enter a valid input between 1 and 6." <<endl;
                     }
                 }
                 cout<<"Enter updated detail"<<endl;
@@ -1273,7 +1275,7 @@ void Manager::update_user(){
                 cin>>s;
                 bool is_already_used2;
                 bool c,d,e;
-                switch(temp1){
+                switch(stoi(temp1)){
                     case 1:
                         x[0] = s;
                         break;
@@ -1364,7 +1366,7 @@ void Manager::delete_user(){
         if (temp1=="1" || temp1=="2" || temp1=="3") {
             a= true;
         } else {
-            cout << "Invalid input. Please enter a valid input" <<endl;
+            cout << "Invalid input. Please enter a valid input between 1 and 3." <<endl;
         }
     }
     if(temp1=="1"){
@@ -1439,22 +1441,22 @@ void Manager::add_car(){
         is_already_used2 = check_car(u.id);
     }
     temp.push_back(u.id);
-    cout<<"Enter the cars condition"<<endl;
+    cout<<"Enter the users condition"<<endl;
     cin>>u.condition;
     //Write code to check if input is an integer between 0 and 5 else ask for input again
     bool b = false;
     while(!b){
         try{
-            MyStoi::stoi(u.condition);
-            if(MyStoi::stoi(u.condition)<0 || MyStoi::stoi(u.condition)>5){
-            cout<<"Please enter a valid input"<<endl;
+            stoi(u.condition);
+            if(stoi(u.condition)<0 || stoi(u.condition)>5){
+            cout<<"Please enter a valid input between 0 and 5"<<endl;
             cin>>u.condition;
             b=false;
             }
             else b=true;
         }
-        catch(...){
-            cout<<"Please enter a valid input"<<endl;
+        catch(exception e){
+            cout<<"Please enter a valid input between 0 and 5"<<endl;
             cin>>u.condition;
         }
     }
@@ -1468,12 +1470,11 @@ void Manager::add_car(){
     cin>>temporary;
     bool a=false;
     while(!a){
-        //Write code to check if input temporary can be converted to an integer using MyStoi::stoi else ask for input again
         try{
-            MyStoi::stoi(temporary);
+            stoi(temporary);
             a=true;
         }
-        catch(...){
+        catch(exception e){
             cout<<"Please enter a valid input"<<endl;
             cin>>temporary;
         }
@@ -1484,10 +1485,10 @@ void Manager::add_car(){
     a=false;
     while(!a){
         try{
-            MyStoi::stoi(temporary);
+            stoi(temporary);
             a=true;
         }
-        catch(...){
+        catch(exception e){
             cout<<"Please enter a valid input"<<endl;
             cin>>temporary;
         }
